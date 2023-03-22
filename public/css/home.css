@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+:root {
+    --title-text-color: #D6D6D6;
+
+}
+
+body{
+    background-color: black;
+}
+
+/* container styles */
+
+.title-box{ color: var(--title-text-color); font-family: Georgia, 'Times New Roman', Times, serif; text-align: center; padding: 9px 0 9px 0;}
+
+/* text styles */
+
+.heading { font-family: 'Lobster', cursive; font-size: 45px;}
+
+/* image styles */
+
+.banner-image {max-height: 200px; width: 100%; object-fit: cover;}
