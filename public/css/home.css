@@ -1,22 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 
-:root {
-    --title-text-color: #D6D6D6;
-
-}
+/* tag styles */
 
 body{
     background-color: black;
-    color: white;
+    color: #D6D6D6;;
+    font-family: Georgia, 'Times New Roman', Times, serif; 
+    text-align: center;
+    font-size: 18px;
 }
+
+input, select{width: 50%; display: block; margin: auto; margin-top: 10px; margin-bottom: 15px; padding: 7px;}
+
+input[type=text]:focus{ border: 5px solid lightseagreen; }
+
+/* element styles */
+
+#submit-new-car{ background-color: lightseagreen; margin-top: 40px; margin-bottom: 40px; font-family: 'Lobster', cursive; font-size: 20px;}
 
 /* container styles */
 
-.title-box{ color: var(--title-text-color); font-family: Georgia, 'Times New Roman', Times, serif; text-align: center; padding: 9px 0 9px 0;}
+.title-box{ padding: 9px 0 9px 0;}
+
+.add-car-box{ margin: auto; width: 60%; }
 
 /* text styles */
 
-.heading { font-family: 'Lobster', cursive; font-size: 45px;}
+.title { font-family: 'Lobster', cursive; font-size: 48px;}
+
+.heading{ font-family: 'Lobster', cursive; font-size: 34px; }
+
+#fields-list{list-style-position: inside; list-style-type: circle; padding: 0;}
 
 /* image styles */
 

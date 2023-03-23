@@ -10,14 +10,15 @@
     </head>
     <body>
         <div class="title-box">
-            <h1 class="heading">Virtual Garage</h1>
+            <h1 class="title">Virtual Garage</h1>
             <p>Roll up the garage doors and let the sunlight in. Behold your breathtaking (virtual) collection of (photos of) cars!</p>
         </div>
         <img class="banner-image" src="./images/car-banner.jpg" alt="car banner">
 
         <div class="add-car-box">
+            <h1 class="heading">Add Cars</h1>
             <p>Assemble your collection here. Specify:</p>
-            <ul>
+            <ul id="fields-list">
                 <li>Model name</li>
                 <li>Manufacturer</li>
                 <li>The garage you store it in</li>
@@ -29,7 +30,15 @@
                 <label for="manufacturer">Manufacturer</label>
                 <input id="manufacturer" name="manufacturer" type="text">
                 <label for="garage">Garage</label>
-                <input id="garage" name="garage" type="radio">
+                <select name="garage" id="garage">
+                    <option value="0">Select...</option>
+                    <option value="1">London</option>
+                    <option value="2">Tokyo</option>
+                    <option value="3">Berlin</option>
+                    <option value="4">Los Angeles</option>
+                    <option value="5">Monte Carlo</option>
+                </select>
+                <input id="submit-new-car" type="submit">
             </form>
         </div>
         
