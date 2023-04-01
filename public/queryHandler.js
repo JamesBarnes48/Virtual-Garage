@@ -1,18 +1,21 @@
 const addCarForm = document.getElementById("addCarForm");
-addCarForm.addEventListener("submit", async (e) => {
+addCarForm.addEventListener("submit", addNewCar);
+
+async function addNewCar(e){
     e.preventDefault();
 
-    const data = {
-        model: document.getElementById("model")?.value,
-        manufacturer: document.getElementById("manufacturer")?.value,
-        garage: document.getElementById("garage")?.value
+    const options = {
+        method: "POST",
+        body: JSON.stringify({
+            model: document.getElementById("model")?.value,
+            manufacturer: document.getElementById("manufacturer")?.value,
+            garage: document.getElementById("garage")?.value
+        }),
+        headers: {
+            "Content-Type": "application/json",
+            'Accept': 'application/json'
+          }
     };
 
-    const res = await fetch("/addCar", {
-        method: "post",
-        body: JSON.stringify(data),
-        headers: {
-            "Content-type": "application/json; charset=UTF-8"
-          }
-    });
-})
+    const res = await fetch("/addCar", options);
+}
