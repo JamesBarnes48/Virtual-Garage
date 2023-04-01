@@ -1,5 +1,13 @@
+//fetch elements
 const addCarForm = document.getElementById("addCarForm");
+const garageSelector = document.getElementById("garage");
+
+//add listeners
 addCarForm.addEventListener("submit", addNewCar);
+garageSelector.addEventListener("change", showGlow);
+
+//functionality
+const validGarages = [1,2,3,4,5];
 
 async function addNewCar(e){
     e.preventDefault();
@@ -18,4 +26,12 @@ async function addNewCar(e){
     };
 
     const res = await fetch("/addCar", options);
+}
+
+function showGlow(){
+    if(validGarages.includes(+garageSelector.value)){
+        garageSelector.classList.add("glow");
+    }else{
+        garageSelector.classList.remove("glow");
+    }
 }

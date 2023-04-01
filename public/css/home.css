@@ -12,7 +12,7 @@ body{
 
 input, select{width: 50%; display: block; margin: auto; margin-top: 10px; margin-bottom: 15px; padding: 7px;}
 
-input[type=text]:focus{ border: 5px solid lightseagreen; }
+input[type=text]:focus, .glow{ border: 5px solid lightseagreen; }
 
 /* element styles */
 
