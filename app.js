@@ -6,7 +6,10 @@ const express = require("express");
 const app = express();
 
 //config
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3000;
+const dotenv = require("dotenv");
+const { Client } = require("pg");
+dotenv.config();
 
 app.use(express.static('public'));
 app.use(express.json());
@@ -28,7 +31,8 @@ app.post("/failure", function(req, res) {
 const validGarages = [1,2,3,4,5];
 
 //TODO
-//add db integration
+//keep following the site to integrate your guide in
+//once finished integrating db make sure you make a full readme!
 
 app.post("/addCar", function(req, res) {
   const isValid = validateInput(req.body);

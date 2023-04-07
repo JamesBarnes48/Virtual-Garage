@@ -7,6 +7,8 @@
 --these were the default values for my postgreSQL database when I was setting it up but please ensure it's the same for you
 --if you have a different user or schema then please make sure you change it to yours!
 
+--of course, full details are in the readme file!
+
 --create tables and set owner
 CREATE TABLE public.cars (
     "carID" integer NOT NULL,
