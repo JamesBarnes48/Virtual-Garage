@@ -28,8 +28,7 @@ app.post("/failure", function(req, res) {
 const validGarages = [1,2,3,4,5];
 
 //TODO
-//use queryhandler to add class to garage selector to add glow when proper one sleected
-//add validation to prevent user from selecting garage = 0
+//add db integration
 
 app.post("/addCar", function(req, res) {
   const isValid = validateInput(req.body);
