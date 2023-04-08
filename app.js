@@ -7,13 +7,13 @@ const app = express();
 
 //config
 const port = process.env.PORT || 3000;
-const dotenv = require("dotenv");
-const { Client } = require("pg");
-dotenv.config();
+const connection = require('./connection');
 
 app.use(express.static('public'));
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
+//routes
 
 app.listen(process.env.PORT || 3000, function() {
   console.log("running on port " + port);
@@ -27,7 +27,6 @@ app.post("/failure", function(req, res) {
   res.redirect("/");
 })
 
-//routes
 const validGarages = [1,2,3,4,5];
 
 //TODO
@@ -41,7 +40,9 @@ app.post("/addCar", function(req, res) {
 
 });
 
-function validateInput(data){
+//static functions
+
+async function validateInput(data){
   //validate user has filled out all fields
   if(Object.values(data).some((element) => {return !element?.length})){
     return {success: false, message: "Ensure you have provided values for all three fields."};
@@ -49,5 +50,12 @@ function validateInput(data){
 
   //ensure valid garage
   if(!validGarages.includes(+data.garage)) return {success: false, message: 'Please provide a valid garage for your car.'};
-  return {success: true};
+
+  //query database
+  console.log('querying');
+  const res = await connection.asyncQuery('select * from cars');
+  console.log('respomse:');
+  console.log(res);
+
+  return {success: true, data: res};
 }
