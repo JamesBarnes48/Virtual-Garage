@@ -30,32 +30,44 @@ app.post("/failure", function(req, res) {
 const validGarages = [1,2,3,4,5];
 
 //TODO
-//keep following the site to integrate your guide in
 //once finished integrating db make sure you make a full readme!
 
-app.post("/addCar", function(req, res) {
-  const isValid = validateInput(req.body);
-  if(!isValid.success) return res.json({success: false, message: isValid.message});
+app.post("/addCar", async function(req, res) {
+  try{
+    const data = sanitiseInput(req.body);
 
+    const isValid = validateInput(data);
+    if(!isValid.success) return res.json({success: false, message: isValid.message});
+  
+    //query database
+    const result = await connection.asyncQuery('insert into cars (model, manufacturer, garageid) values($1, $2, $3)', [data.model, data.manufacturer, data.garageID]);
 
+    if(result.err) throw new Error(result.err);
+    return {success: true, message: 'New car successfully added to your garage!'};
+  }catch(err){
+    console.log(new Date(), '/addCar', err);
+    return res.json({success: false, message: 'An error has occurred'});
+  }
 });
 
 //static functions
 
-async function validateInput(data){
+function validateInput(data){
   //validate user has filled out all fields
-  if(Object.values(data).some((element) => {return !element?.length})){
+  if(Object.values(data).some((element) => {return !element?.length || !element})){
     return {success: false, message: "Ensure you have provided values for all three fields."};
   }
 
   //ensure valid garage
-  if(!validGarages.includes(+data.garage)) return {success: false, message: 'Please provide a valid garage for your car.'};
+  if(!validGarages.includes(+data.garageID)) return {success: false, message: 'Please provide a valid garage for your car.'};
 
-  //query database
-  console.log('querying');
-  const res = await connection.asyncQuery('select * from cars');
-  console.log('respomse:');
-  console.log(res);
+  return {success: true};
+}
 
-  return {success: true, data: res};
+function sanitiseInput(reqBody){
+  return {
+    model: String(reqBody.model),
+    manufacturer: String(reqBody.manufacturer),
+    garageID: +reqBody.garageID
+  };
 }

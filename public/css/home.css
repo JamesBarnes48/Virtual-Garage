@@ -4,7 +4,7 @@
 
 body{
     background-color: black;
-    color: #D6D6D6;;
+    color: #D6D6D6;
     font-family: Georgia, 'Times New Roman', Times, serif; 
     text-align: center;
     font-size: 18px;
@@ -17,6 +17,8 @@ input[type=text]:focus, .glow{ border: 5px solid lightseagreen; }
 /* element styles */
 
 #submit-new-car{ background-color: lightseagreen; margin-top: 40px; margin-bottom: 40px; font-family: 'Lobster', cursive; font-size: 20px;}
+
+#car-added-popup{ background-color: black; font-family: 'Lobster', cursive; padding: 8px; }
 
 /* container styles */
 
@@ -35,3 +37,11 @@ input[type=text]:focus, .glow{ border: 5px solid lightseagreen; }
 /* image styles */
 
 .banner-image {max-height: 200px; width: 100%; object-fit: cover;}
+
+/* special properties */
+
+.hidden{ display: none; }
+
+.positive-border{ border: 5px solid lightseagreen; }
+
+.negative-border{ border: 5px solid lightcoral; }
