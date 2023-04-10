@@ -23,17 +23,14 @@ pool.on('error', function(err, client){
 module.exports = {
     asyncQuery: async (query, params) => {
         try{
-            console.log('inthe query')
             const client = await pool.connect();
-            console.log('connected')
             const response = await client.query(query, params);
-            console.log('queried:');
             await client.release();
-            console.log('ended');
-            return response;
+
+            return {err: null, rows: response.rows || []};
         }catch(err){
             console.error(new Date(), ' asyncQuery error ', err);
-            return;
+            return {err: err, rows: []};
         }
     }
 }  
