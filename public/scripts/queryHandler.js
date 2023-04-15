@@ -39,7 +39,7 @@ async function addNewCar(e){
 
     const res = await makeRequest("/addCar", options);
 
-    console.log(res);
+    //force a refresh of a new container holding existing cars here?
 
     carAddedPopup(res);
     resetGlow();
@@ -49,7 +49,6 @@ async function addNewCar(e){
 
 function carAddedPopup(response){
     //show popup and add border
-    console.info(response);
     const $container = $('#add-car-box');
     const $addedPopup = $('<div class="car-added-popup"></div>')
         .addClass(response.success? 'positive-border': 'negative-border')

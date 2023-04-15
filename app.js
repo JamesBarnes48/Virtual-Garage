@@ -1,11 +1,15 @@
 //jshint esversion:6
-//imports
+/*
+imports
+*/
 const bodyParser = require("body-parser");
 const https = require("https");
 const express = require("express");
 const app = express();
 
-//config
+/*
+config
+*/
 const port = process.env.PORT || 3000;
 const connection = require('./connection');
 
@@ -13,8 +17,9 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-//routes
-
+/*
+routes
+*/
 app.listen(process.env.PORT || 3000, function() {
   console.log("running on port " + port);
 })
@@ -50,8 +55,9 @@ app.post("/addCar", async function(req, res) {
   }
 });
 
-//static functions
-
+/*
+static functions
+*/
 function validateInput(data){
   //validate user has filled out all fields
   if(Object.values(data).some((element) => {return !element})){
