@@ -24,7 +24,7 @@ input[type=text]:focus, .glow{ border: 5px solid lightseagreen; }
 
 .title-box{ padding: 9px 0 9px 0;}
 
-.add-car-box{ margin: auto; width: 60%; }
+#add-car-box{ margin: auto; width: 60%; }
 
 /* text styles */
 
@@ -39,8 +39,6 @@ input[type=text]:focus, .glow{ border: 5px solid lightseagreen; }
 .banner-image {max-height: 200px; width: 100%; object-fit: cover;}
 
 /* special properties */
-
-.hidden{ display: none; }
 
 .positive-border{ border: 5px solid lightseagreen; }
 

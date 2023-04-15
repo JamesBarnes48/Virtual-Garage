@@ -43,7 +43,7 @@ app.post("/addCar", async function(req, res) {
     const result = await connection.asyncQuery('insert into cars (model, manufacturer, garageid) values($1, $2, $3)', [data.model, data.manufacturer, data.garageID]);
 
     if(result.err) throw new Error(result.err);
-    return {success: true, message: 'New car successfully added to your garage!'};
+    return res.json({success: true, message: 'New car successfully added to your garage!'});
   }catch(err){
     console.log(new Date(), '/addCar', err);
     return res.json({success: false, message: 'An error has occurred'});
@@ -54,7 +54,7 @@ app.post("/addCar", async function(req, res) {
 
 function validateInput(data){
   //validate user has filled out all fields
-  if(Object.values(data).some((element) => {return !element?.length || !element})){
+  if(Object.values(data).some((element) => {return !element})){
     return {success: false, message: "Ensure you have provided values for all three fields."};
   }
 
