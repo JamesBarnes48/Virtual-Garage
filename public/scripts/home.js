@@ -1,12 +1,13 @@
 //fetch elements
 const $addCarForm = $("#addCarForm");
 const $garageSelector = $("#garage");
+const $carsDisplay = $('#cars-box');
 
 //add listeners
 $addCarForm.on("submit", addNewCar);
 $garageSelector.on("change", showGlow);
 
-//functionality
+//constants
 const validGarages = [1,2,3,4,5];
 
 //request function - standardised request func
@@ -21,6 +22,9 @@ async function makeRequest(endpoint, options){
     })
 }
 
+/*
+page functionality
+*/
 async function addNewCar(e){
     e.preventDefault();
 
@@ -37,14 +41,26 @@ async function addNewCar(e){
           }
     };
 
-    const res = await makeRequest("/addCar", options);
+    const res = await makeRequest("/cars/post", options);
 
     //force a refresh of a new container holding existing cars here?
 
     carAddedPopup(res);
     resetGlow();
     $addCarForm.trigger('reset');
-    return;
+    return refresh();
+}
+
+async function refresh(){
+    $carsDisplay.empty();
+
+    const options = {
+        method: "GET"
+    };
+
+    const res = await makeRequest('/cars/get', options);
+
+    //do stuff with response here
 }
 
 function carAddedPopup(response){
@@ -61,6 +77,9 @@ function carAddedPopup(response){
     }, 5000);
 }
 
+/*
+misc. functionality
+*/
 function showGlow(){
     if(validGarages.includes(+$garageSelector.val())){
         $garageSelector.addClass("positive-border");

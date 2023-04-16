@@ -37,7 +37,16 @@ const validGarages = [1,2,3,4,5];
 //TODO
 //once finished integrating db make sure you make a full readme!
 
-app.post("/addCar", async function(req, res) {
+app.get('/cars/get', async function(req, res) {
+  try{
+    const result = await connection.asyncQuery(`select cars.* from cars 
+      inner join garages`)
+  }catch(err){
+    
+  }
+})
+
+app.post("/cars/post", async function(req, res) {
   try{
     const data = sanitiseInput(req.body);
 
