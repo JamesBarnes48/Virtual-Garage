@@ -26,6 +26,8 @@ input[type=text]:focus, .glow{ border: 5px solid lightseagreen; }
 
 #add-car-box{ margin: auto; width: 60%; }
 
+#cars-box{margin: auto; width: 80%;}
+
 /* text styles */
 
 .title { font-family: 'Lobster', cursive; font-size: 48px;}
