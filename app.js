@@ -39,10 +39,14 @@ const validGarages = [1,2,3,4,5];
 
 app.get('/cars/get', async function(req, res) {
   try{
-    const result = await connection.asyncQuery(`select cars.* from cars 
-      inner join garages`)
+    const data = await getCarsSql();
+
+    //if sql error then throw down stack to error handler
+    if(data.err) throw new Error(data.err);
+    return res.json({success: true, data: data.rows});
   }catch(err){
-    
+    console.log(new Date(), ' /cars/get error: ', err);
+    return res.json({success: false, message: 'An error has occurred'});
   }
 })
 
@@ -85,4 +89,10 @@ function sanitiseInput(reqBody){
     manufacturer: String(reqBody.manufacturer),
     garageID: +reqBody.garageID
   };
+}
+
+async function getCarsSql(){
+  return connection.asyncQuery(`select cars.model, cars.manufacturer, garages.name garageName 
+  from cars 
+  inner join garages on garages.garageid = cars.garageid`);
 }
