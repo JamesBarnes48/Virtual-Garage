@@ -92,7 +92,7 @@ function sanitiseInput(reqBody){
 }
 
 async function getCarsSql(){
-  return connection.asyncQuery(`select cars.model, cars.manufacturer, garages.name garageName 
+  return connection.asyncQuery(`select cars.model, cars.manufacturer, garages.garageid, garages.name garagename 
   from cars 
   inner join garages on garages.garageid = cars.garageid`);
 }

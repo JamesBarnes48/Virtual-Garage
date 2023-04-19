@@ -81,7 +81,15 @@ async function getCars(){
 function renderCars(cars){
     if(!cars.length) return;
     Array.from(cars).forEach((car) => {
-        const $carContainer = $('<div class="car')
+        const $carContainer = $('<div class="car-container" />').appendTo($carsDisplay);
+
+        //apply standard car banner styling as well as dynamically assign garage-specific styling using classes
+        $('<div class="car-banner"/>').addClass(car.garagename.toLowerCase()).appendTo($carContainer);
+        
+        //main body of car container
+        $('<div class="car-body"/>').text('LALALALALLA').appendTo($carContainer);
+
+        //FIGURE OUT WHY THEYRE NOT RENDERING THE BANNER
     })
 }
 

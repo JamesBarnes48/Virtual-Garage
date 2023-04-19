@@ -28,6 +28,8 @@ input[type=text]:focus, .glow{ border: 5px solid lightseagreen; }
 
 #parent-cars-box{margin: auto; width: 80%;}
 
+.car-container{margin: 20px; height: 230px; border: 5px solid white;}
+
 /* text styles */
 
 .title { font-family: 'Lobster', cursive; font-size: 48px;}
@@ -39,6 +41,14 @@ input[type=text]:focus, .glow{ border: 5px solid lightseagreen; }
 /* image styles */
 
 .banner-image {max-height: 200px; width: 100%; object-fit: cover;}
+
+/* car banner styles */
+.car-banner {height: 25%; width: 100%;}
+.car-banner.london{background-image: url('../images/garages/london.jpg');}
+.car-banner.tokyo{background-image: url('../images/garages/tokyo.jpg');}
+.car-banner.berlin{background-image: url('../images/garages/berlin.jpg');}
+.car-banner.losangeles{background-image: url('../images/garages/losangeles.jpg');}
+.car-banner.montecarlo{background-image: url('../images/garages/montecarlo.jpg');}
 
 /* special properties */
 
