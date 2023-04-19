@@ -1,25 +1,33 @@
 //fetch elements
 const $addCarForm = $("#addCarForm");
 const $garageSelector = $("#garage");
-const $carsDisplay = $('#cars-box');
+const $carsDisplay = $('#parent-cars-box');
 
 //add listeners
 $addCarForm.on("submit", addNewCar);
 $garageSelector.on("change", showGlow);
+
+//fetch cars in garage on page load
+document.addEventListener('DOMContentLoaded', () => {return refresh()})
 
 //constants
 const validGarages = [1,2,3,4,5];
 
 //request function - standardised request func
 async function makeRequest(endpoint, options){
-    if(!endpoint) return {success: false, message: 'Must provide an endpoint'};
-    if(!options.method || !options.headers) return {success: false, message: 'Must provide a method and headers for request'};
-
-    return fetch(endpoint, options).then(response => {
-        return response.json().then(parsedResponse => {
-            return parsedResponse;
+    try{
+        if(!endpoint) return {success: false, message: 'Must provide an endpoint'};
+        if(!options.method) return {success: false, message: 'Must provide a method for request'};
+    
+        return fetch(endpoint, options).then(response => {
+            return response.json().then(parsedResponse => {
+                return parsedResponse;
+            })
         })
-    })
+    }catch(err){
+        console.log(new Date(), ' makeRequest error: ', err);
+        return [];
+    }
 }
 
 /*
@@ -52,15 +60,29 @@ async function addNewCar(e){
 }
 
 async function refresh(){
-    $carsDisplay.empty();
+    try{
+        $carsDisplay.empty();
 
+        const cars = await getCars();
+        renderCars(cars);
+        //do stuff with response here
+    }catch(err){console.log(err)}
+}
+
+async function getCars(){
     const options = {
         method: "GET"
     };
 
-    const res = await makeRequest('/cars/get', options);
+    const response = await makeRequest('/cars/get', options);
+    return response.data || [];
+}
 
-    //do stuff with response here
+function renderCars(cars){
+    if(!cars.length) return;
+    Array.from(cars).forEach((car) => {
+        const $carContainer = $('<div class="car')
+    })
 }
 
 function carAddedPopup(response){
