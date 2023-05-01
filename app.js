@@ -33,6 +33,7 @@ app.post("/failure", function(req, res) {
 })
 
 const validGarages = [1,2,3,4,5];
+const MAX_CARS = 15;
 
 //TODO
 //once finished integrating db make sure you make a full readme!
@@ -63,8 +64,12 @@ app.post("/cars/post", async function(req, res) {
 
     const isValid = validateInput(data);
     if(!isValid.success) return res.json({success: false, message: isValid.message});
+
+    //ensure db is not full already
+    const existingCars = await connection.asyncQuery('select count(*) numcars from cars');
+    if(existingCars.rows[0].numcars >= MAX_CARS) return res.json({success: false, message: 'Maximum number of cars reached.'});
   
-    //query database
+    //insert car into db
     const result = await connection.asyncQuery('insert into cars (model, manufacturer, garageid) values($1, $2, $3)', [data.model, data.manufacturer, data.garageID]);
 
     if(result.err) throw new Error(result.err);

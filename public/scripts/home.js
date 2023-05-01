@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {return refresh()})
 
 //constants
 const VALID_GARAGES = [1,2,3,4,5];
+const MAX_CARS = 15;
 
 //request function - standardised request func
 async function makeRequest(endpoint, options){
@@ -64,7 +65,10 @@ async function refresh(){
         $carsDisplay.empty();
         const cars = await getCars();
 
-        $carCount.text(`${cars.length}/15`);
+        $carCount.text(`${cars.length}/${MAX_CARS}`);
+        if(cars.length >= MAX_CARS){ toggleFullGarage(true); }
+        else{ toggleFullGarage(false); }
+
         renderCars(cars);
     }catch(err){console.log(err)}
 }
@@ -92,6 +96,16 @@ function renderCars(cars){
         $('<div class="manufacturer-name">').text(car.manufacturer).appendTo($bodyEl);
         $('<div class="model-name">').text(car.model).appendTo($bodyEl);
     })
+}
+
+function toggleFullGarage(isFull){
+    if(isFull){
+        $('#submit-new-car').css('display', 'none');
+        $carCount.css('color', 'red');
+    }else{
+        $('#submit-new-car').css('display', 'block');
+        $carCount.css('color', '#D6D6D6');
+    }
 }
 
 function carAddedPopup(response){
