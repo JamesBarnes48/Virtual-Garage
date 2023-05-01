@@ -11,7 +11,7 @@ $garageSelector.on("change", showGlow);
 document.addEventListener('DOMContentLoaded', () => {return refresh()})
 
 //constants
-const validGarages = [1,2,3,4,5];
+const VALID_GARAGES = [1,2,3,4,5];
 
 //request function - standardised request func
 async function makeRequest(endpoint, options){
@@ -84,7 +84,9 @@ function renderCars(cars){
         const $carContainer = $('<div class="car-container" />').appendTo($carsDisplay);
 
         //apply standard car banner styling as well as dynamically assign garage-specific styling using classes
-        $('<div class="car-banner"/>').addClass(car.garagename.toLowerCase()).appendTo($carContainer);
+        const $bannerEl = $('<div class="car-banner"/>').addClass(car.garagename).text(fancyName(car.garagename)).appendTo($carContainer);
+        $('<div class="flag-img"/>').addClass(car.garagename).appendTo($bannerEl);
+
         
         //main body of car container
         $('<div class="car-body"/>').text('LALALALALLA').appendTo($carContainer);
@@ -111,7 +113,7 @@ function carAddedPopup(response){
 misc. functionality
 */
 function showGlow(){
-    if(validGarages.includes(+$garageSelector.val())){
+    if(VALID_GARAGES.includes(+$garageSelector.val())){
         $garageSelector.addClass("positive-border");
         $garageSelector.removeClass("negative-border");
     }else{
@@ -123,4 +125,23 @@ function resetGlow(){
     $garageSelector.removeClass("negative-border");
     $garageSelector.removeClass("positive-border");
 
+}
+
+function fancyName(garageName){
+    switch(garageName){
+        case 'london':
+            return 'London';
+            break;
+        case 'tokyo':
+            return 'Tokyo';
+            break;
+        case 'berlin':
+            return 'Berlin';
+            break;
+        case 'losangeles':
+            return 'Los Angeles';
+            break;
+        case 'montecarlo':
+            return 'Monte Carlo'
+    }
 }

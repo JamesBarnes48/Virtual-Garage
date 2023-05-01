@@ -43,6 +43,12 @@ app.get('/cars/get', async function(req, res) {
 
     //if sql error then throw down stack to error handler
     if(data.err) throw new Error(data.err);
+    
+    //format output
+    data.rows.map((row) => {
+      row.garagename = row.garagename.replace(/ /g,'').toLowerCase();
+    })
+
     return res.json({success: true, data: data.rows});
   }catch(err){
     console.log(new Date(), ' /cars/get error: ', err);
