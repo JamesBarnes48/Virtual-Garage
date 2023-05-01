@@ -51,7 +51,7 @@ input[type=text]:focus, .glow{ border: 5px solid lightseagreen; }
 .car-banner.losangeles{background-image: url('../images/garages/losangeles.jpg');}
 .car-banner.montecarlo{background-image: url('../images/garages/montecarlo.jpg');}
 
-.car-banner .flag-img {display: inline-block; float: left; height: 85%; width: 120px; background-size: contain; background-repeat: no-repeat;}
+.car-banner .flag-img { float: left; height: 85%; width: 120px; background-size: contain; background-repeat: no-repeat;}
 .car-banner .flag-img.london{background-image: url('../images/garages/uk-flag.png');}
 .car-banner .flag-img.tokyo{background-image: url('../images/garages/japan-flag.png');}
 .car-banner .flag-img.berlin{background-image: url('../images/garages/german-flag.png');}
