@@ -26,6 +26,8 @@ input[type=text]:focus, .glow{ border: 5px solid lightseagreen; }
 
 #add-car-box{ margin: auto; width: 60%; }
 
+#car-count-box{position: absolute; right: 30px; font-size: 50px; font-family: 'Lobster', cursive;}
+
 #parent-cars-box{margin: auto; width: 80%;}
 
 .car-container{margin: 30px auto 30px auto; height: 230px; width: 75%; border: 5px solid white;}
@@ -42,14 +44,14 @@ input[type=text]:focus, .glow{ border: 5px solid lightseagreen; }
 
 .banner-image {max-height: 200px; width: 100%; object-fit: cover;}
 
-/* car banner styles */
+/* car container styles */
 .car-banner {display: inline-block; height: 33%; width: 95%; background-size: cover; background-position: center; 
     font-size: 46px; text-align: right; font-weight: bold; font-family: 'Lobster', cursive; padding-right: 5%;}
 .car-banner.london{background-image: url('../images/garages/london.jpg'); background-position-y: 30%;}
 .car-banner.tokyo{background-image: url('../images/garages/tokyo.jpg');}
 .car-banner.berlin{background-image: url('../images/garages/berlin.jpg');}
 .car-banner.losangeles{background-image: url('../images/garages/losangeles.jpg');}
-.car-banner.montecarlo{background-image: url('../images/garages/montecarlo.jpg');}
+.car-banner.montecarlo{background-image: url('../images/garages/montecarlo.jpg'); text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;}
 
 .car-banner .flag-img { float: left; height: 85%; width: 120px; background-size: contain; background-repeat: no-repeat;}
 .car-banner .flag-img.london{background-image: url('../images/garages/uk-flag.png');}
@@ -57,6 +59,10 @@ input[type=text]:focus, .glow{ border: 5px solid lightseagreen; }
 .car-banner .flag-img.berlin{background-image: url('../images/garages/german-flag.png');}
 .car-banner .flag-img.losangeles{background-image: url('../images/garages/usa-flag.png');}
 .car-banner .flag-img.montecarlo{background-image: url('../images/garages/monaco-flag.png');}
+
+.car-body{text-align: left; margin-left: 27px; height: 66%; }
+.car-body .manufacturer-name{font-family: 'Lobster', cursive; font-size: 45px;}
+.car-body .model-name{font-family: 'Lobster', cursive; font-size: 38px;}
 
 /* special properties */
 

@@ -36,6 +36,7 @@ const validGarages = [1,2,3,4,5];
 
 //TODO
 //once finished integrating db make sure you make a full readme!
+//AT END OF DEV - look into google custom search engine api to get images of the cars!
 
 app.get('/cars/get', async function(req, res) {
   try{

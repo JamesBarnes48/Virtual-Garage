@@ -2,6 +2,8 @@
 const $addCarForm = $("#addCarForm");
 const $garageSelector = $("#garage");
 const $carsDisplay = $('#parent-cars-box');
+const $carCount = $('#car-count-box');
+
 
 //add listeners
 $addCarForm.on("submit", addNewCar);
@@ -51,8 +53,6 @@ async function addNewCar(e){
 
     const res = await makeRequest("/cars/post", options);
 
-    //force a refresh of a new container holding existing cars here?
-
     carAddedPopup(res);
     resetGlow();
     $addCarForm.trigger('reset');
@@ -62,10 +62,10 @@ async function addNewCar(e){
 async function refresh(){
     try{
         $carsDisplay.empty();
-
         const cars = await getCars();
+
+        $carCount.text(`${cars.length}/15`);
         renderCars(cars);
-        //do stuff with response here
     }catch(err){console.log(err)}
 }
 
@@ -87,11 +87,10 @@ function renderCars(cars){
         const $bannerEl = $('<div class="car-banner"/>').addClass(car.garagename).text(fancyName(car.garagename)).appendTo($carContainer);
         $('<div class="flag-img"/>').addClass(car.garagename).appendTo($bannerEl);
 
-        
         //main body of car container
-        $('<div class="car-body"/>').text('LALALALALLA').appendTo($carContainer);
-
-        //FIGURE OUT WHY THEYRE NOT RENDERING THE BANNER
+        const $bodyEl = $('<div class="car-body"/>').appendTo($carContainer);
+        $('<div class="manufacturer-name">').text(car.manufacturer).appendTo($bodyEl);
+        $('<div class="model-name">').text(car.model).appendTo($bodyEl);
     })
 }
 
