@@ -94,6 +94,7 @@ function renderCars(cars){
         //main body of car container
         const $bodyEl = $('<div class="car-body"/>').appendTo($carContainer);
         $('<div class="manufacturer-name">').text(car.manufacturer).appendTo($bodyEl);
+        $('<span class="delete-btn"><i class="fa fa-fw fa-trash"></i></span>').appendTo($bodyEl);
         $('<div class="model-name">').text(car.model).appendTo($bodyEl);
     })
 }
