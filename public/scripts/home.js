@@ -144,16 +144,12 @@ function fancyName(garageName){
     switch(garageName){
         case 'london':
             return 'London';
-            break;
         case 'tokyo':
             return 'Tokyo';
-            break;
         case 'berlin':
             return 'Berlin';
-            break;
         case 'losangeles':
             return 'Los Angeles';
-            break;
         case 'montecarlo':
             return 'Monte Carlo'
     }
