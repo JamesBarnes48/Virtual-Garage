@@ -42,16 +42,13 @@ const MAX_CARS = 15;
 app.get('/cars/get', async function(req, res) {
   try{
     const data = await getCarsSql();
-
-    //if sql error then throw down stack to error handler
-    if(data.err) throw new Error(data.err);
     
     //format output
-    data.rows.map((row) => {
+    data.map((row) => {
       row.garagename = row.garagename.replace(/ /g,'').toLowerCase();
     })
 
-    return res.json({success: true, data: data.rows});
+    return res.json({success: true, data: data});
   }catch(err){
     console.log(new Date(), ' /cars/get error: ', err);
     return res.json({success: false, message: 'An error has occurred'});
@@ -67,12 +64,11 @@ app.post("/cars/post", async function(req, res) {
 
     //ensure db is not full already
     const existingCars = await connection.asyncQuery('select count(*) numcars from cars');
-    if(existingCars.rows[0].numcars >= MAX_CARS) return res.json({success: false, message: 'Maximum number of cars reached.'});
+    if(existingCars[0].numcars >= MAX_CARS) return res.json({success: false, message: 'Maximum number of cars reached.'});
   
     //insert car into db
-    const result = await connection.asyncQuery('insert into cars (model, manufacturer, garageid) values($1, $2, $3)', [data.model, data.manufacturer, data.garageID]);
+    await connection.asyncQuery('insert into cars (model, manufacturer, garageid) values($1, $2, $3)', [data.model, data.manufacturer, data.garageID]);
 
-    if(result.err) throw new Error(result.err);
     return res.json({success: true, message: 'New car successfully added to your garage!'});
   }catch(err){
     console.log(new Date(), '/post error', err);

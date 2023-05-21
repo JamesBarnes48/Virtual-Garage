@@ -22,15 +22,9 @@ pool.on('error', function(err, client){
 //exported function used for a standard query
 module.exports = {
     asyncQuery: async (query, params) => {
-        try{
-            const client = await pool.connect();
-            const response = await client.query(query, params);
-            await client.release();
-
-            return {err: null, rows: response.rows || []};
-        }catch(err){
-            console.error(new Date(), ' asyncQuery error ', err);
-            return {err: err, rows: []};
-        }
+        const client = await pool.connect();
+        const response = await client.query(query, params);
+        await client.release();
+        return response.rows || [];
     }
 }  
