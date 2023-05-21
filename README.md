@@ -1,4 +1,4 @@
-** Introduction **
+**Introduction**
 
 Welcome to the JamesBarnes48's virtual car garage repo! This is just a little side project I have been working on to refine and showcase some new web dev skills of mine including:
 
@@ -12,7 +12,7 @@ First and foremost I must say that I have NO intention of hosting this online. C
 
 Please be aware that any passwords or things you set up to use this project are completely yours alone so no need to worry about leaking your credentials when using this web app. Everything you setup will be 100% local.
 
-** Database Client **
+**Database Client**
 
 Firstly you will see I have included a template.env file in the repo. Rename this to simply .env and inside you will find all the key-value pairs you need for setting  your database. We will return to this later.
 
@@ -28,7 +28,7 @@ Once you've setup your environment you should see the postgreSQL homescreen. You
 
 Also check your dbuser. This is the 'user' you will be logging into the database with. Due to the scale of our project we only need one user, this is completely local to you! Please ensure you have a user and call them 'postgres'. Again, this should already be there but if not use the UI to make him.
 
-** Environment Variables **
+**Environment Variables**
 
 Previously we mentioned your .env file. When setting up your database you should have set up a few values which we will need to provide to our node.js server so it knows how to log into and use our database. Below is a list of each key in the file and what they should be:
 
@@ -38,7 +38,7 @@ Previously we mentioned your .env file. When setting up your database you should
 - PGDATABASE=postgres
 - PGPORT=5432
 
-** Database Population **
+**Database Population**
 
 Once everything is set up all you need to do is populate your DB with the required tables. In this repo is a file called databaseSetup.sql containing myraid SQL queries that will set up your DB for you. Just run these queries using the query tool in pgAdmin (right click on your schema and select Query Tool).
 
