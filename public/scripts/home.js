@@ -19,18 +19,27 @@ const MAX_CARS = 15;
 //request function - standardised request func
 async function makeRequest(endpoint, options){
     try{
-        if(!endpoint) return {success: false, message: 'Must provide an endpoint'};
-        if(!options.method) return {success: false, message: 'Must provide a method for request'};
+        const validRequest = validateRequest(endpoint, options);
     
-        return fetch(endpoint, options).then(response => {
+        return fetch(endpoint, validRequest).then(response => {
             return response.json().then(parsedResponse => {
                 return parsedResponse;
             })
         })
     }catch(err){
         console.log(new Date(), ' makeRequest error: ', err);
-        return [];
+        return {success: false, message: 'An error has occurred'};
     }
+}
+
+function validateRequest(endpoint, options){
+    if(!endpoint?.length) throw new Error('Must provide an endpoint');
+    if(!options?.method) throw new Error('Must provide a method for request');
+
+    //automatically stringify json request body
+    if(options.query) options.query = JSON.stringify(options.query);
+    if(options.body) options.body = JSON.stringify(options.body);
+    return options;
 }
 
 /*
@@ -41,11 +50,11 @@ async function addNewCar(e){
 
     const options = {
         method: "POST",
-        body: JSON.stringify({
+        body: {
             model: $("#model")?.val(),
             manufacturer: $("#manufacturer")?.val(),
             garageID: $("#garage")?.val()
-        }),
+        },
         headers: {
             "Content-Type": "application/json",
             'Accept': 'application/json'
@@ -91,12 +100,33 @@ function renderCars(cars){
         const $bannerEl = $('<div class="car-banner"/>').addClass(car.garagename).text(fancyName(car.garagename)).appendTo($carContainer);
         $('<div class="flag-img"/>').addClass(car.garagename).appendTo($bannerEl);
 
+        //////////////
+        ////////////
+        ///TODO
+
+        //MAKE THE DELETE BUTTON DO SOMETHING
         //main body of car container
         const $bodyEl = $('<div class="car-body"/>').appendTo($carContainer);
         $('<div class="manufacturer-name">').text(car.manufacturer).appendTo($bodyEl);
-        $('<span class="delete-btn"><i class="fa fa-fw fa-trash"></i></span>').appendTo($bodyEl);
+        $('<span class="delete-btn"><i class="fa fa-fw fa-trash"></i></span>')
+        .click(async () => {await this.deleteCar(car.carid)})
+        .appendTo($bodyEl);
         $('<div class="model-name">').text(car.model).appendTo($bodyEl);
     })
+}
+
+async function deleteCar(carID){
+    const options = {
+        method: "GET",
+        query: {id: carID},
+        headers: {
+            "Content-Type": "application/json",
+            'Accept': 'application/json'
+          }
+    };
+
+    const response = await makeRequest('/cars/delete', options);
+    return response.data || [];
 }
 
 function toggleFullGarage(isFull){
