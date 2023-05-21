@@ -75,10 +75,25 @@ app.post("/cars/post", async function(req, res) {
     if(result.err) throw new Error(result.err);
     return res.json({success: true, message: 'New car successfully added to your garage!'});
   }catch(err){
-    console.log(new Date(), '/addCar', err);
+    console.log(new Date(), '/post error', err);
     return res.json({success: false, message: 'An error has occurred'});
   }
 });
+
+app.post('/cars/delete', async function(req, res){
+  try{
+    //validate id provided
+    const id = +req.body?.id;
+    if(!id > 0) return res.json({success: false, message: 'Invalid car ID'});
+
+    //execute delete on db
+    await connection.asyncQuery('delete from cars where carid = $1', [id]);
+    return res.json({success: true, message: 'Car successfully deleted from garage!'});
+  }catch(err){
+    console.log(new Date(), ' /delete error ', err);
+    return res.json({success: false, message: 'An error has occurred'});
+  }
+})
 
 /*
 static functions

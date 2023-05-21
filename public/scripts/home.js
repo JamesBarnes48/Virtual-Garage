@@ -46,27 +46,34 @@ function validateRequest(endpoint, options){
 page functionality
 */
 async function addNewCar(e){
-    e.preventDefault();
+    try{
+        e.preventDefault();
 
-    const options = {
-        method: "POST",
-        body: {
-            model: $("#model")?.val(),
-            manufacturer: $("#manufacturer")?.val(),
-            garageID: $("#garage")?.val()
-        },
-        headers: {
-            "Content-Type": "application/json",
-            'Accept': 'application/json'
-          }
-    };
-
-    const res = await makeRequest("/cars/post", options);
-
-    carAddedPopup(res);
-    resetGlow();
-    $addCarForm.trigger('reset');
-    return refresh();
+        const options = {
+            method: "POST",
+            body: {
+                model: $("#model")?.val(),
+                manufacturer: $("#manufacturer")?.val(),
+                garageID: $("#garage")?.val()
+            },
+            headers: {
+                "Content-Type": "application/json",
+                'Accept': 'application/json'
+              }
+        };
+    
+        const res = await makeRequest("/cars/post", options);
+    
+        responsePopup(res);
+    }catch(err){
+        console.log(new Date(), ' addNewCar error ', err);
+        responsePopup();
+    }
+    finally{
+        resetGlow();
+        $addCarForm.trigger('reset');
+        return refresh();
+    }
 }
 
 async function refresh(){
@@ -100,11 +107,6 @@ function renderCars(cars){
         const $bannerEl = $('<div class="car-banner"/>').addClass(car.garagename).text(fancyName(car.garagename)).appendTo($carContainer);
         $('<div class="flag-img"/>').addClass(car.garagename).appendTo($bannerEl);
 
-        //////////////
-        ////////////
-        ///TODO
-
-        //MAKE THE DELETE BUTTON DO SOMETHING
         //main body of car container
         const $bodyEl = $('<div class="car-body"/>').appendTo($carContainer);
         $('<div class="manufacturer-name">').text(car.manufacturer).appendTo($bodyEl);
@@ -118,17 +120,24 @@ function renderCars(cars){
 async function deleteCar(carID){
     try{
         const options = {
-            method: "GET",
-            query: {id: carID},
+            method: "POST",
+            body: {id: carID},
             headers: {
                 "Content-Type": "application/json",
                 'Accept': 'application/json'
               }
         };
     
-        await makeRequest('/cars/delete', options);
-    }catch(err){console.log(new Date(), 'deleteCar error: ', err)}
-    finally{return refresh()}
+        const res = await makeRequest('/cars/delete', options);
+        responsePopup(res);
+
+    }catch(err){
+        console.log(new Date(), 'deleteCar error: ', err);
+        responsePopup();
+    }
+    finally{
+        return refresh();
+    }
 }
 
 function toggleFullGarage(isFull){
@@ -141,7 +150,7 @@ function toggleFullGarage(isFull){
     }
 }
 
-function carAddedPopup(response){
+function responsePopup(response = {}){
     //show popup and add border
     const $container = $('#add-car-box');
     const $addedPopup = $('<div class="car-added-popup"></div>')
