@@ -46,47 +46,38 @@ function validateRequest(endpoint, options){
 page functionality
 */
 async function addNewCar(e){
-    try{
-        e.preventDefault();
+    e.preventDefault();
 
-        const options = {
-            method: "POST",
-            body: {
-                model: $("#model")?.val(),
-                manufacturer: $("#manufacturer")?.val(),
-                garageID: $("#garage")?.val()
-            },
-            headers: {
-                "Content-Type": "application/json",
-                'Accept': 'application/json'
-              }
-        };
-    
-        const res = await makeRequest("/cars/post", options);
-    
-        responsePopup(res);
-    }catch(err){
-        console.log(new Date(), ' addNewCar error ', err);
-        responsePopup();
-    }
-    finally{
-        resetGlow();
-        $addCarForm.trigger('reset');
-        return refresh();
-    }
+    const options = {
+        method: "POST",
+        body: {
+            model: $("#model")?.val(),
+            manufacturer: $("#manufacturer")?.val(),
+            garageID: $("#garage")?.val()
+        },
+        headers: {
+            "Content-Type": "application/json",
+            'Accept': 'application/json'
+            }
+    };
+
+    const res = await makeRequest("/cars/post", options);
+
+    responsePopup(res);
+    resetGlow();
+    $addCarForm.trigger('reset');
+    return refresh();
 }
 
 async function refresh(){
-    try{
-        $carsDisplay.empty();
-        const cars = await getCars();
+    $carsDisplay.empty();
+    const cars = await getCars();
 
-        $carCount.text(`${cars.length}/${MAX_CARS}`);
-        if(cars.length >= MAX_CARS){ toggleFullGarage(true); }
-        else{ toggleFullGarage(false); }
+    $carCount.text(`${cars.length}/${MAX_CARS}`);
+    if(cars.length >= MAX_CARS){ toggleFullGarage(true); }
+    else{ toggleFullGarage(false); }
 
-        renderCars(cars);
-    }catch(err){console.log(err)}
+    renderCars(cars);
 }
 
 async function getCars(){
@@ -118,26 +109,18 @@ function renderCars(cars){
 }
 
 async function deleteCar(carID){
-    try{
-        const options = {
-            method: "POST",
-            body: {id: carID},
-            headers: {
-                "Content-Type": "application/json",
-                'Accept': 'application/json'
-              }
-        };
-    
-        const res = await makeRequest('/cars/delete', options);
-        responsePopup(res);
+    const options = {
+        method: "POST",
+        body: {id: carID},
+        headers: {
+            "Content-Type": "application/json",
+            'Accept': 'application/json'
+            }
+    };
 
-    }catch(err){
-        console.log(new Date(), 'deleteCar error: ', err);
-        responsePopup();
-    }
-    finally{
-        return refresh();
-    }
+    const res = await makeRequest('/cars/delete', options);
+    responsePopup(res);
+    return refresh();
 }
 
 function toggleFullGarage(isFull){
