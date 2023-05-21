@@ -4,7 +4,6 @@ const $garageSelector = $("#garage");
 const $carsDisplay = $('#parent-cars-box');
 const $carCount = $('#car-count-box');
 
-
 //add listeners
 $addCarForm.on("submit", addNewCar);
 $garageSelector.on("change", showGlow);
