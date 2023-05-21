@@ -116,17 +116,19 @@ function renderCars(cars){
 }
 
 async function deleteCar(carID){
-    const options = {
-        method: "GET",
-        query: {id: carID},
-        headers: {
-            "Content-Type": "application/json",
-            'Accept': 'application/json'
-          }
-    };
-
-    const response = await makeRequest('/cars/delete', options);
-    return response.data || [];
+    try{
+        const options = {
+            method: "GET",
+            query: {id: carID},
+            headers: {
+                "Content-Type": "application/json",
+                'Accept': 'application/json'
+              }
+        };
+    
+        await makeRequest('/cars/delete', options);
+    }catch(err){console.log(new Date(), 'deleteCar error: ', err)}
+    finally{return refresh()}
 }
 
 function toggleFullGarage(isFull){
