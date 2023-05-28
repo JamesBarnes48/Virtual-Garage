@@ -77,9 +77,9 @@ app.post("/cars/post", async function(req, res) {
 
 app.post('/cars/delete', async function(req, res){
   try{
-    //validate id provided
+    //validate id provided (protect from sql injection)
     const id = +req.body?.id;
-    if(!id > 0) return res.json({success: false, message: 'Invalid car ID'});
+    if(!+id > 0) return res.json({success: false, message: 'Invalid car ID'});
 
     //execute delete on db
     await connection.asyncQuery('delete from cars where carid = $1', [id]);
