@@ -3,7 +3,6 @@
 imports
 */
 const bodyParser = require("body-parser");
-const https = require("https");
 const express = require("express");
 const app = express();
 
@@ -32,12 +31,12 @@ app.post("/failure", function(req, res) {
   res.redirect("/");
 })
 
+/*
+constants
+*/
+
 const validGarages = [1,2,3,4,5];
 const MAX_CARS = 15;
-
-//TODO
-//once finished integrating db make sure you make a full readme!
-//AT END OF DEV - look into google custom search engine api to get images of the cars!
 
 app.get('/cars/get', async function(req, res) {
   try{
